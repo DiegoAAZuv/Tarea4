@@ -1,0 +1,46 @@
+// Pines de entrada asignados
+int pinA3 = 2; int pinA2 = 3; int pinA1 = 4; int pinA0 = 5;
+// Pines de entrada asignados al Interruptor B
+int pinB3 = 6; int pinB2 = 7; int pinB1 = 8; int pinB0 = 9;
+
+//Pines de LEDs
+int ledMayor = 10;
+int ledIgual = 11;
+int ledMenor = 12;
+
+void setup() {
+  // Activar resistencias pull-up 
+  pinMode(pinA3, INPUT_PULLUP); pinMode(pinA2, INPUT_PULLUP); pinMode(pinA1, INPUT_PULLUP); pinMode(pinA0, INPUT_PULLUP);
+  pinMode(pinB3, INPUT_PULLUP); pinMode(pinB2, INPUT_PULLUP); pinMode(pinB1, INPUT_PULLUP); pinMode(pinB0, INPUT_PULLUP);
+
+  pinMode(ledMayor, OUTPUT);
+  pinMode(ledIgual, OUTPUT);
+  pinMode(ledMenor, OUTPUT);
+}
+
+void loop() {
+  // Leemos los terminales de los interruptoresos 
+  int bitA3 = !digitalRead(pinA3); int bitA2 = !digitalRead(pinA2); int bitA1 = !digitalRead(pinA1); int bitA0 = !digitalRead(pinA0);
+  int bitB3 = !digitalRead(pinB3); int bitB2 = !digitalRead(pinB2); int bitB1 = !digitalRead(pinB1); int bitB0 = !digitalRead(pinB0);
+
+  int valorA = (bitA3 * 8) + (bitA2 * 4) + (bitA1 * 2) + (bitA0 * 1);
+  int valorB = (bitB3 * 8) + (bitB2 * 4) + (bitB1 * 2) + (bitB0 * 1);
+
+  if (valorA > valorB) {
+    digitalWrite(ledMayor, LOW);
+    digitalWrite(ledIgual, HIGH);
+    digitalWrite(ledMenor, HIGH);
+  } 
+  else if (valorA == valorB) {
+    digitalWrite(ledMayor, HIGH);
+    digitalWrite(ledIgual, LOW);
+    digitalWrite(ledMenor, HIGH);
+  } 
+  else { 
+    digitalWrite(ledMayor, HIGH);
+    digitalWrite(ledIgual, HIGH);
+    digitalWrite(ledMenor, LOW);
+  }
+
+  delay(100); 
+}
